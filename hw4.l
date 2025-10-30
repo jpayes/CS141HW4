@@ -41,7 +41,7 @@
 
 (defun MY-COPY(L)
 	(cond
-		((ATOM L) L)
+		((atom L) L)
 		(t (cons (MY-COPY (car L)) (MY-COPY (cdr L)))) 
 	)
 )
@@ -61,5 +61,30 @@
 		((null L) nil)
 		((equal X (car L)) (MY-REMOVE X (cdr L)))
 		(t (cons (car L) (MY-REMOVE X (cdr L))))
+	)
+)
+
+(defun MY-SUBST (X Y Z)
+	(cond
+		((atom Z)
+		(cond ((EQ Z X) Y)(T Z)))
+		(t (cons (MY-SUBT X Y (car Z)) (MY-SUBT X Y (cdr Z))))
+	)
+)
+
+(defun MY-SUBSET (FN L)
+	(cond
+    	((null L) nil)
+    	((apply FN (list (car L))) (cons (car L) (MY-SUBSET FN (cdr L))))
+    	(t (MY-SUBSET FN (cdr L)))
+	)
+)
+
+(defun MY-MERGE (L1 L2)
+	(cond
+		((null L1) L2)
+		((null L2) L1)
+		((< (car L1) (car L2))(cons (car L1)(MY-MERGE (cdr L1) L2)))
+		(t (cons (car L2)(MY-MERGE L1 (cdr L2))))
 	)
 )

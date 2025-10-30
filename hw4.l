@@ -1,5 +1,4 @@
-
-
+;;;;;MY-LENGTH;;;;;
 (defun MY-LENGTH(L)
     (cond
         ((null L) 0)
@@ -7,6 +6,7 @@
     )
 )
 
+;;;;;MY-MEMQ;;;;;
 (defun MY-MEMQ(A L)
 	(cond
 		((null L) nil)
@@ -15,6 +15,7 @@
 	)
 )
 
+;;;;;MY-APPEND;;;;;
 (defun MY-APPEND(L1 L2)
 	(cond
 		((and (null L1) (null L2)) nil)
@@ -24,6 +25,7 @@
 	)
 )
 
+;;;;;MY-REVERSE;;;;;
 (defun MY-REVERSE(L)
 	(cond
 		((null L) nil)
@@ -32,6 +34,7 @@
 
 )
 
+;;;;;MY-MAPCAR;;;;
 (defun MY-MAPCAR(F L)
 	(cond
 		((null L) nil)
@@ -39,6 +42,8 @@
 	)
 )
 
+
+;;;;;MY-COPY;;;;;
 (defun MY-COPY(L)
 	(cond
 		((atom L) L)
@@ -46,6 +51,7 @@
 	)
 )
 
+;;;;;MY-NTH;;;;;
 (defun MY-NTH (L N)
 	(cond
 		((= N 0) (cons nil L))
@@ -55,7 +61,7 @@
 	)
 )
 
-
+;;;;;MY-REMOVE;;;;;
 (defun MY-REMOVE (X L)
 	(cond
 		((null L) nil)
@@ -64,14 +70,16 @@
 	)
 )
 
+;;;;;MY-SUBST;;;;;
 (defun MY-SUBST (X Y Z)
 	(cond
 		((atom Z)
 		(cond ((EQ Z X) Y)(T Z)))
-		(t (cons (MY-SUBT X Y (car Z)) (MY-SUBT X Y (cdr Z))))
+		(t (cons (MY-SUBST X Y (car Z)) (MY-SUBST X Y (cdr Z))))
 	)
 )
 
+;;;;;MY-SUBSET;;;;;
 (defun MY-SUBSET (FN L)
 	(cond
     	((null L) nil)
@@ -80,11 +88,44 @@
 	)
 )
 
+;;;;;MY-MERGE;;;;;
 (defun MY-MERGE (L1 L2)
 	(cond
 		((null L1) L2)
 		((null L2) L1)
 		((< (car L1) (car L2))(cons (car L1)(MY-MERGE (cdr L1) L2)))
 		(t (cons (car L2)(MY-MERGE L1 (cdr L2))))
+	)
+)
+;;;;;MY-SUBLIST;;;;;
+(defun MY-SUBLIST (L1 L2)
+	(cond
+		((null L1) t)
+    	((null L2) nil)
+    	((eq (car L1) (car L2))
+    	(cond
+    		((MY-SUBLIST (cdr L1) (cdr L2)) t)
+    		(t (MY-SUBLIST L1 (cdr L2))))
+		)
+    	(t (MY-SUBLIST L1 (cdr L2)))
+	)
+)
+
+;;;;;MY-ASSOC;;;;;
+(defun MY-ASSOC (A ALIST)
+  (cond
+    ((null ALIST) nil)
+    ((eq A (car (car ALIST))) (car ALIST))
+    (t (MY-ASSOC A (cdr ALIST)))))
+
+;;;;;MY-REPLACE;;;;;
+(defun MY-REPLACE (alist l)
+  (cond
+    ((atom l)
+     (cond
+       ((MY-ASSOC l alist) (cdr (MY-ASSOC l alist)))
+       (t l)))
+    ((null l) nil)
+    (t (cons (my-replace alist (car l)) (my-replace alist (cdr l))))
 	)
 )

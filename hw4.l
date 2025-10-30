@@ -102,12 +102,8 @@
 	(cond
 		((null L1) t)
     	((null L2) nil)
-    	((eq (car L1) (car L2))
-    	(cond
-    		((MY-SUBLIST (cdr L1) (cdr L2)) t)
-    		(t (MY-SUBLIST L1 (cdr L2))))
-		)
-    	(t (MY-SUBLIST L1 (cdr L2)))
+    	((eq (car L1) (car L2)) (MY-SUBLIST (cdr L1) (cdr L2)))
+		(t (MY-SUBLIST L1 (cdr L2)))
 	)
 )
 

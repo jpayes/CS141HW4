@@ -35,6 +35,31 @@
 (defun MY-MAPCAR(F L)
 	(cond
 		((null L) nil)
-		(t (cons (APPLY F (list (car L))) (MY-MAPCAR(F (cdr L)))
+		(t (cons (APPLY F (list (car L))) (MY-MAPCAR F (cdr L))))
+	)
+)
+
+(defun MY-COPY(L)
+	(cond
+		((ATOM L) L)
+		(t (cons (MY-COPY (car L)) (MY-COPY (cdr L)))) 
+	)
+)
+
+(defun MY-NTH (L N)
+	(cond
+		((= N 0) (cons nil L))
+		((= N 1) L)
+		((null L) nil)
+		(t (MY-NTH(cdr L) (- N 1)))
+	)
+)
+
+
+(defun MY-REMOVE (X L)
+	(cond
+		((null L) nil)
+		((equal X (car L)) (MY-REMOVE X (cdr L)))
+		(t (cons (car L)) (MY-REMOVE X (cdr L)))
 	)
 )

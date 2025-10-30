@@ -60,6 +60,6 @@
 	(cond
 		((null L) nil)
 		((equal X (car L)) (MY-REMOVE X (cdr L)))
-		(t (cons (car L)) (MY-REMOVE X (cdr L)))
+		(t (cons (car L) (MY-REMOVE X (cdr L))))
 	)
 )
